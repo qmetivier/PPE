@@ -56,6 +56,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Class\Partenaire.cs" />
+    <Compile Include="Class\Professionnel.cs" />
+    <Compile Include="ErreurSaisie.xaml.cs">
+      <DependentUpon>ErreurSaisie.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="repository\PartenaireRepository.cs" />
+    <Compile Include="repository\ProfessionnelRepository.cs" />
+    <Page Include="ErreurSaisie.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GestionPartenaire.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

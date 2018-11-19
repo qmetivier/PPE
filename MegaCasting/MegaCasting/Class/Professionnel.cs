@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MegaCasting.Class
+namespace MegaCasting.repository
 {
-    public class Partenaire
+    public class Professionnel
     {
         private Int64 id;
-
+       
+            
         public Int64 Id
         {
             get { return id; }
@@ -47,6 +44,22 @@ namespace MegaCasting.Class
             get { return telephone; }
             set { telephone = value; }
         }
+
+        private string email;
+
+        public string Email
+        {
+            get { return email; }
+            set { email = value; }
+        }
+        private int nbrPoste;
+
+        public int NbrPoste
+        {
+            get { return nbrPoste; }
+            set { nbrPoste = value; }
+        }
+
         private string fax;
 
         public string Fax
@@ -55,12 +68,12 @@ namespace MegaCasting.Class
             set { fax = value; }
         }
 
-       public Partenaire() {
+        public Professionnel()
+        {
             libelle = "";
             adresse = "";
             url = "";
             adresse = "";
         }
-
     }
 }

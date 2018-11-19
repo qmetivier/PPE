@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MegaCasting.Class;
+using MegaCasting.repository;
+
 namespace MegaCasting
 {
     /// <summary>
@@ -20,9 +22,10 @@ namespace MegaCasting
     public partial class GestionPartenaire : Window
     {
         List<Partenaire> partenaires;
-        public GestionPartenaire(List<Partenaire> _partenaires)
+        PartenaireRepository partenaireRepository = new PartenaireRepository();
+        public GestionPartenaire()
         {
-            partenaires = _partenaires;
+            partenaires = partenaireRepository.Select();
 
             InitializeComponent();
 
@@ -31,12 +34,22 @@ namespace MegaCasting
 
 
         }
+        public void reload() {
+            partenaires = partenaireRepository.Select();
+            lvUsers.ItemsSource = partenaires;
+            lvUsers.Items.Refresh();
+
+        }
 
         private void lvUsers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            STKPinformationPartenaire.Children.Clear();
-            InformationPartenaire informationPartenaire = new InformationPartenaire(partenaires, this,false);
-            STKPinformationPartenaire.Children.Add(informationPartenaire);
+            if (this.lvUsers.SelectedIndex  != -1 && this.lvUsers.SelectedIndex < partenaires.Count)
+            {
+                STKPinformationPartenaire.Children.Clear();
+                InformationPartenaire informationPartenaire = new InformationPartenaire(partenaires, this, false);
+                STKPinformationPartenaire.Children.Add(informationPartenaire);
+            }
+            
             
             
 

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MegaCasting.Class;
+using MegaCasting.repository;
 
 namespace MegaCasting
 {
@@ -25,6 +26,8 @@ namespace MegaCasting
         GestionPartenaire gestionPartenaire;
         List<Partenaire> partenaires;
         bool ajout;
+        PartenaireRepository partenaireRepository = new PartenaireRepository();
+
         public InformationPartenaire(List<Partenaire> _partenaires, GestionPartenaire _gestionPartenaire,bool _ajout)
         {
             InitializeComponent();
@@ -41,29 +44,43 @@ namespace MegaCasting
             {
                 partenaire = _partenaires[_gestionPartenaire.lvUsers.SelectedIndex];
             }
-            TxtBlibelle.Text = partenaire.Libelle.ToString();
-            TxtBAdresse.Text = partenaire.Adresse.ToString();
-            TxtTel.Text = partenaire.Telephone.ToString();
-            TxtBFax.Text = partenaire.Fax.ToString();
-            TxtBUrl.Text = partenaire.URL.ToString();
-            
+            TxtBlibelle.Text = (partenaire.Libelle == null) ? "" :  partenaire.Libelle.ToString();
+            TxtBAdresse.Text = (partenaire.Adresse == null) ? "" :  partenaire.Adresse.ToString();
+            TxtTel.Text   = (partenaire.Telephone == null) ? "" : partenaire.Telephone.ToString();
+            TxtBFax.Text = (partenaire.Fax == null) ? "" : partenaire.Fax.ToString();
+            TxtBUrl.Text = (partenaire.URL == null) ? "" : partenaire.URL.ToString();           
            
             
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
-        {            
-            partenaire.Libelle = TxtBlibelle.Text;
-            partenaire.Adresse = TxtBAdresse.Text;
-            partenaire.Telephone = Int32.Parse(TxtTel.Text);
-            partenaire.Fax = Int32.Parse(TxtBFax.Text);
-            partenaire.URL = TxtBUrl.Text;
-            if (ajout)
+        {
+            int verifnumber = 0;
+            if (TxtBlibelle.Text =="" || TxtBAdresse.Text =="" || TxtTel.Text =="" || TxtBUrl.Text=="" || !int.TryParse(TxtTel.Text, out verifnumber )|| (!int.TryParse(TxtBFax.Text, out verifnumber) && TxtBFax.Text != ""))
             {
-                partenaires.Add(partenaire);
+                ErreurSaisie erreurSaisie = new ErreurSaisie();
+                erreurSaisie.ShowDialog();
             }
-            gestionPartenaire.lvUsers.Items.Refresh();
-            gestionPartenaire.STKPinformationPartenaire.Children.Clear();
+            else
+            {
+                partenaire.Libelle = TxtBlibelle.Text;
+                partenaire.Adresse = TxtBAdresse.Text;
+                partenaire.Telephone = TxtTel.Text;
+                partenaire.Fax = TxtBFax.Text;
+                partenaire.URL = TxtBUrl.Text;
+                if (ajout)
+                {                   
+                    partenaireRepository.Insert(partenaire);
+                }
+                else
+                {
+
+                }
+                gestionPartenaire.reload();
+                gestionPartenaire.STKPinformationPartenaire.Children.Clear();
+
+            }
+            
         }
     }
 }

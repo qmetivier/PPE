@@ -40,7 +40,7 @@ namespace MegaCasting
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            GestionPartenaire gestionPartenaire = new GestionPartenaire(partenaires);
+            GestionPartenaire gestionPartenaire = new GestionPartenaire();
             gestionPartenaire.Show();
         }
 
@@ -56,7 +56,7 @@ namespace MegaCasting
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            GestionPartenaire gestionPartenaire = new GestionPartenaire(partenaires);
+            GestionPartenaire gestionPartenaire = new GestionPartenaire();
             gestionPartenaire.Show();
         }
     }

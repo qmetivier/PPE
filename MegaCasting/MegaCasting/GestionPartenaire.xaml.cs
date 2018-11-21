@@ -68,12 +68,13 @@ namespace MegaCasting
         private void Supprimer_Click(object sender, RoutedEventArgs e)
         {
             
-
+      
             if (lvUsers.SelectedIndex >=0 && lvUsers.SelectedIndex < partenaires.Count)
             {
+                partenaireRepository.Delete(partenaires[lvUsers.SelectedIndex].Id);
+                this.reload();
                 STKPinformationPartenaire.Children.Clear();
-                partenaires.Remove(partenaires[lvUsers.SelectedIndex]);
-                lvUsers.Items.Refresh();
+                
             }
 
         }

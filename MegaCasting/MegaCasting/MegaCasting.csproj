@@ -57,11 +57,18 @@
     </ApplicationDefinition>
     <Compile Include="Class\Partenaire.cs" />
     <Compile Include="Class\Professionnel.cs" />
+    <Compile Include="ErreurBDD.xaml.cs">
+      <DependentUpon>ErreurBDD.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ErreurSaisie.xaml.cs">
       <DependentUpon>ErreurSaisie.xaml</DependentUpon>
     </Compile>
     <Compile Include="repository\PartenaireRepository.cs" />
     <Compile Include="repository\ProfessionnelRepository.cs" />
+    <Page Include="ErreurBDD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ErreurSaisie.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

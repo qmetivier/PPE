@@ -11,7 +11,8 @@ namespace MegaCasting.repository
 {
     class PartenaireRepository
     {
-        SqlConnection connection = new SqlConnection("Server=localhost;Database=megacasting;Trusted_Connection=True;");
+       // SqlConnection connection = new SqlConnection("Server=localhost;Database=megacasting;Trusted_Connection=True;");
+        SqlConnection connection = new SqlConnection("Server=B16-04\\SQLEXPRESS2017;Database=megacasting;Trusted_Connection=True;");
         public List<Partenaire> Select()
         {
             List<Partenaire> partenaires = new List<Partenaire>();
@@ -70,14 +71,32 @@ namespace MegaCasting.repository
         public void Update(Partenaire partenaire)
         {
 
-            SqlCommand commande = new SqlCommand("InsertPartenaire", connection);
+            SqlCommand commande = new SqlCommand("UpdatePartenaire", connection);
             commande.CommandType = CommandType.StoredProcedure;
 
+            commande.Parameters.Add("@id", SqlDbType.BigInt).Value = partenaire.Id;
             commande.Parameters.Add("@libelle", SqlDbType.NVarChar).Value = partenaire.Libelle;
             commande.Parameters.Add("@URL", SqlDbType.NVarChar).Value = partenaire.URL;
             commande.Parameters.Add("@adresse", SqlDbType.NVarChar).Value = partenaire.Adresse;
             commande.Parameters.Add("@telephone", SqlDbType.NVarChar).Value = partenaire.Telephone;
             commande.Parameters.Add("@fax", SqlDbType.NVarChar).Value = partenaire.Fax;
+            connection.Open();
+
+            SqlDataReader dataReader = commande.ExecuteReader();
+
+            connection.Close();
+
+
+        }
+
+        public void Delete(Int64 Id)
+        {
+
+            SqlCommand commande = new SqlCommand("DeletePartenaire", connection);
+            commande.CommandType = CommandType.StoredProcedure;
+
+            commande.Parameters.Add("@id", SqlDbType.BigInt).Value = Id;
+
             connection.Open();
 
             SqlDataReader dataReader = commande.ExecuteReader();

@@ -74,7 +74,7 @@ namespace MegaCasting
                 }
                 else
                 {
-
+                    partenaireRepository.Update(partenaire);
                 }
                 gestionPartenaire.reload();
                 gestionPartenaire.STKPinformationPartenaire.Children.Clear();
